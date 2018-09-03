@@ -1,0 +1,924 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{feature\_extraction\_MLP\_classification}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{classification-of-audio-signals}{%
+\section{Classification of audio
+signals}\label{classification-of-audio-signals}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{k+kn}{import} \PY{n+nn}{glob}
+          \PY{k+kn}{import} \PY{n+nn}{os}
+          \PY{k+kn}{import} \PY{n+nn}{librosa}
+          \PY{k+kn}{import} \PY{n+nn}{librosa}\PY{n+nn}{.}\PY{n+nn}{display}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{import} \PY{n}{specgram}
+          \PY{k+kn}{import} \PY{n+nn}{tensorflow} \PY{k}{as} \PY{n+nn}{tf}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{precision\PYZus{}recall\PYZus{}fscore\PYZus{}support}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{c+c1}{\PYZsh{} data preparation}
+         \PY{c+c1}{\PYZsh{}parent\PYZus{}dir = \PYZsq{}sound\PYZhy{}data/audio/\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}nme=\PYZsq{}\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}sub\PYZus{}dir = \PYZsq{}fold11\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}file\PYZus{}ext=\PYZsq{}*.wav\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}i=0}
+         \PY{c+c1}{\PYZsh{}for fn in glob.glob(os.path.join(parent\PYZus{}dir, sub\PYZus{}dir, file\PYZus{}ext)):}
+             
+         \PY{c+c1}{\PYZsh{}    nme=\PYZsq{}human\PYZhy{}11\PYZhy{}\PYZsq{}+str(i)+\PYZsq{}.wav\PYZsq{}}
+         \PY{c+c1}{\PYZsh{}    os.rename(fn,os.path.join(parent\PYZus{}dir, sub\PYZus{}dir,nme))}
+         \PY{c+c1}{\PYZsh{}    i+=1}
+\end{Verbatim}
+
+
+    \hypertarget{data-preparation}{%
+\subsection{Data preparation}\label{data-preparation}}
+
+The audio files considered in this are from the sound classification
+database that is available openly to all for the classification problem.
+There are 10 different classes in the actual data base that are the most
+common noises that can be expected in an environment. Now we adjust the
+source of the audio files by adding up new files from the human speech.
+Now we have altered the database to have 11 different classes starting
+from the airconditioner noise to the Human speech.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} The sound files of the corresponding paths are loaded}
+         \PY{k}{def} \PY{n+nf}{load\PYZus{}sound\PYZus{}files}\PY{p}{(}\PY{n}{file\PYZus{}paths}\PY{p}{)}\PY{p}{:}
+             \PY{n}{raw\PYZus{}sounds} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{fp} \PY{o+ow}{in} \PY{n}{file\PYZus{}paths}\PY{p}{:}
+                 \PY{n}{X}\PY{p}{,}\PY{n}{sr} \PY{o}{=} \PY{n}{librosa}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/shanraja/Desktop/projects/Sound\PYZus{}classification/sound\PYZhy{}data/audio/fold1/}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{fp}\PY{p}{)}
+                 \PY{n}{raw\PYZus{}sounds}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+             \PY{k}{return} \PY{n}{raw\PYZus{}sounds}
+         
+         \PY{c+c1}{\PYZsh{} The wave plot of the signals along with the name }
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}waves}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} The specctrogram of the signal is displayed    }
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}specgram}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{specgram}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{,} \PY{n}{Fs}\PY{o}{=}\PY{l+m+mi}{22050}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}log\PYZus{}power\PYZus{}specgram}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{D} \PY{o}{=} \PY{n}{librosa}\PY{o}{.}\PY{n}{logamplitude}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{stft}\PY{p}{(}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{ref\PYZus{}power}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{)}
+             \PY{n}{librosa}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{specshow}\PY{p}{(}\PY{n}{D}\PY{p}{,}\PY{n}{x\PYZus{}axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}} \PY{p}{,}\PY{n}{y\PYZus{}axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{sound\PYZus{}file\PYZus{}paths} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{57320\PYZhy{}0\PYZhy{}0\PYZhy{}7.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{19026\PYZhy{}1\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{15564\PYZhy{}2\PYZhy{}0\PYZhy{}1.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{31323\PYZhy{}3\PYZhy{}0\PYZhy{}1.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{46669\PYZhy{}4\PYZhy{}0\PYZhy{}35.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{89948\PYZhy{}5\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{46656\PYZhy{}6\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{103074\PYZhy{}7\PYZhy{}3\PYZhy{}2.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{106905\PYZhy{}8\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{108041\PYZhy{}9\PYZhy{}0\PYZhy{}4.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{human\PYZhy{}11\PYZhy{}4.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{sound\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{air conditioner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{car horn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{children playing}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dog bark}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drilling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{engine idling}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gun shot}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{jackhammer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{siren}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{street music}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{human voice}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         
+         \PY{n}{raw\PYZus{}sounds} \PY{o}{=} \PY{n}{load\PYZus{}sound\PYZus{}files}\PY{p}{(}\PY{n}{sound\PYZus{}file\PYZus{}paths}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/resampy/core.py:90: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if not np.issubdtype(x.dtype, np.float):
+
+    \end{Verbatim}
+
+    \hypertarget{representation-of-the-signal}{%
+\section{Representation of the
+signal}\label{representation-of-the-signal}}
+
+    Below we have listed the different signals considered for this
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{k}{for} \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plot\PYZus{}waves}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{c+c1}{\PYZsh{} frequency representation}
+         \PY{k}{for} \PY{n}{n}\PY{p}{,}\PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plot\PYZus{}specgram}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{k}{for} \PY{n}{n}\PY{p}{,}\PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{sound\PYZus{}names}\PY{p}{,}\PY{n}{raw\PYZus{}sounds}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plot\PYZus{}log\PYZus{}power\PYZus{}specgram}\PY{p}{(}\PY{n}{n}\PY{p}{,}\PY{n}{f}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/display.py:656: FutureWarning: Conversion of the second argument of issubdtype from `complex` to `np.complexfloating` is deprecated. In future, it will be treated as `np.complex128 == np.dtype(complex).type`.
+  if np.issubdtype(data.dtype, np.complex):
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the above graphs we can see that the spectrogram of the different
+sounds are distinct show some patterns.Now if we are able to retain the
+features from the spectrogram, then we shall train the neural network to
+identify different signals , either if it is only human speaking or it
+is a combination of the human speech
+
+    \hypertarget{feature-extraction}{%
+\subsection{\texorpdfstring{Feature
+Extraction}{Feature Extraction }}\label{feature-extraction}}
+
+With the help of Librosa library, we can extract useful features from
+sound data. It provides several methods to extract different features
+from the sound clips. We are going to use below mentioned methods to
+extract various features:
+
+\hypertarget{tonality}{%
+\subsubsection{\texorpdfstring{Tonality}{Tonality }}\label{tonality}}
+
+Arranges sounds according to pitch relationships into inter- dependent
+spatial and temporal structures.Characterizing chords, keys, melody,
+motifs and even form, largely depends on understanding these
+structures.Harmony: vertical (synchronous) pitch structures.Melody:
+horizontal (sequential) pitch structures. \#\#\# Stft The short time
+fourier transform of the signal gives the spectrogram or the frequency
+time relationship of the signal. It helps us visualise the change in the
+frequency of the audio signal. \#\#\# MFCCs The mel-frequency cepstrum
+(MFC) is a representation of the short-term power spectrum of a sound,
+based on a linear cosine transform of a log power spectrum on a
+nonlinear mel scale of frequency.Mel-frequency cepstral coefficients
+(MFCCs) are coefficients that collectively make up an MFC. They are
+derived from a type of cepstral representation of the audio clip (a
+nonlinear ``spectrum-of-a-spectrum''). The difference between the
+cepstrum and the mel-frequency cepstrum is that in the MFC, the
+frequency bands are equally spaced on the mel scale, which approximates
+the human auditory system's response more closely than the
+linearly-spaced frequency bands used in the normal cepstrum. \#\#\#
+Chroma Chroma describes the angle of pitch rotation as it traverses the
+helix of the pitch perception.The term chroma feature or chromagram
+closely relates to the twelve different pitch classes. Chroma-based
+features, which are also referred to pitch class profiles, are a
+powerful tool for analyzing music whose pitches can be meaningfully
+categorized (often into twelve categories) and whose tuning approximates
+to the equal-tempered scale. One main property of chroma features is
+that they capture harmonic and melodic characteristics of music, while
+being robust to changes in timbre and instrumentation.Two octave-related
+pitches will share the same angle in the chroma circle: a relation that
+is not captured by a linear pitch scale (or even Mel).For the analysis
+of western tonal music we quantize this angle into 12 positions or pitch
+classes.Pitch Class Profiles (PCP): distribution of the signal's energy
+across a predefined set of pitch classes (chroma). \#\#\# Mel
+spectrogram MelSpectrogram represents an acoustic time-frequency
+representation of a sound: the power spectral density P(f, t).It is
+sampled into a number of points around equally spaced times ti and
+frequencies fj (on a Mel frequency scale).It is typically a a Mel-scaled
+power spectrogram.
+
+\hypertarget{contrast}{%
+\subsubsection{\texorpdfstring{Contrast}{Contrast }}\label{contrast}}
+
+Octave-Based Spectral Contrast considers the spectral peak, spectral
+valley and their difference in each sub-band. For most music, the strong
+spectral peaks roughly correspond with harmonic components; while
+non-harmonic components, or noises, often appear at spectral valleys.
+Thus, Spectral Contrast feature could roughly reflect the relative
+distribution of the harmonic and non-harmonic components in the
+spectrum. Previous features, such as MFCC, average the spectral
+distribution in each sub-band, and thus lose the relative spectral
+information, Considering two spectra which have different spectral
+distribution may have similar average spectral characteristics, the
+average spectral distribution is not sufficient to represent the
+spectral characteristics of music. However, Spectral Contrast keeps more
+information and may have a better discrimination in music type
+classification.
+
+\hypertarget{tonnetz}{%
+\subsubsection{\texorpdfstring{Tonnetz}{Tonnetz }}\label{tonnetz}}
+
+The Tonnetz is a pitch space defined by the network of relationships
+between musical pitches in just intonation (Euler, 1739).Close harmonic
+relations are modeled as short distances on an infinite Euclidian
+plane.Chords become geometric structures on the plane, keys are defined
+by regions in the harmonic network.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{c+c1}{\PYZsh{} inputs to the neural network}
+          \PY{k}{def} \PY{n+nf}{extract\PYZus{}feature}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}\PY{p}{:}
+              \PY{n}{X}\PY{p}{,} \PY{n}{sample\PYZus{}rate} \PY{o}{=} \PY{n}{librosa}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{file\PYZus{}name}\PY{p}{)}
+              \PY{n}{stft} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{stft}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+              \PY{n}{mfccs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{feature}\PY{o}{.}\PY{n}{mfcc}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{X}\PY{p}{,} \PY{n}{sr}\PY{o}{=}\PY{n}{sample\PYZus{}rate}\PY{p}{,} \PY{n}{n\PYZus{}mfcc}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{chroma} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{feature}\PY{o}{.}\PY{n}{chroma\PYZus{}stft}\PY{p}{(}\PY{n}{S}\PY{o}{=}\PY{n}{stft}\PY{p}{,} \PY{n}{sr}\PY{o}{=}\PY{n}{sample\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{mel} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{feature}\PY{o}{.}\PY{n}{melspectrogram}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{sr}\PY{o}{=}\PY{n}{sample\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{contrast} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{feature}\PY{o}{.}\PY{n}{spectral\PYZus{}contrast}\PY{p}{(}\PY{n}{S}\PY{o}{=}\PY{n}{stft}\PY{p}{,} \PY{n}{sr}\PY{o}{=}\PY{n}{sample\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{n}{tonnetz} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{librosa}\PY{o}{.}\PY{n}{feature}\PY{o}{.}\PY{n}{tonnetz}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{n}{librosa}\PY{o}{.}\PY{n}{effects}\PY{o}{.}\PY{n}{harmonic}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,}
+              \PY{n}{sr}\PY{o}{=}\PY{n}{sample\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{k}{return} \PY{n}{mfccs}\PY{p}{,}\PY{n}{chroma}\PY{p}{,}\PY{n}{mel}\PY{p}{,}\PY{n}{contrast}\PY{p}{,}\PY{n}{tonnetz}
+          
+          \PY{k}{def} \PY{n+nf}{parse\PYZus{}audio\PYZus{}files}\PY{p}{(}\PY{n}{parent\PYZus{}dir}\PY{p}{,}\PY{n}{sub\PYZus{}dirs}\PY{p}{,}\PY{n}{file\PYZus{}ext}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+              \PY{n}{features}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{193}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+              \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{sub\PYZus{}dir} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{sub\PYZus{}dirs}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{fn} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{parent\PYZus{}dir}\PY{p}{,} \PY{n}{sub\PYZus{}dir}\PY{p}{,} \PY{n}{file\PYZus{}ext}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      
+                      \PY{k}{try}\PY{p}{:}
+                        \PY{n}{mfccs}\PY{p}{,} \PY{n}{chroma}\PY{p}{,} \PY{n}{mel}\PY{p}{,} \PY{n}{contrast}\PY{p}{,}\PY{n}{tonnetz} \PY{o}{=} \PY{n}{extract\PYZus{}feature}\PY{p}{(}\PY{n}{fn}\PY{p}{)}
+                      \PY{k}{except} \PY{n+ne}{Exception} \PY{k}{as} \PY{n}{e}\PY{p}{:}
+                        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Error encountered while parsing file: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fn}\PY{p}{)}
+                        \PY{k}{continue}
+                      \PY{n}{ext\PYZus{}features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{mfccs}\PY{p}{,}\PY{n}{chroma}\PY{p}{,}\PY{n}{mel}\PY{p}{,}\PY{n}{contrast}\PY{p}{,}\PY{n}{tonnetz}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{vstack}\PY{p}{(}\PY{p}{[}\PY{n}{features}\PY{p}{,}\PY{n}{ext\PYZus{}features}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{labels} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{fn}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{labels}\PY{p}{,} \PY{n}{dtype} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{int}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{one\PYZus{}hot\PYZus{}encode}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+              \PY{n}{n\PYZus{}labels} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+          
+              \PY{n}{n\PYZus{}unique\PYZus{}labels} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}
+              \PY{n}{one\PYZus{}hot\PYZus{}encode} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n}{n\PYZus{}labels}\PY{p}{,}\PY{n}{n\PYZus{}unique\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+              \PY{n}{one\PYZus{}hot\PYZus{}encode}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{n\PYZus{}labels}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+              \PY{k}{return} \PY{n}{one\PYZus{}hot\PYZus{}encode}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{sound\PYZus{}file\PYZus{}paths} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{57320\PYZhy{}0\PYZhy{}0\PYZhy{}7.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{19026\PYZhy{}1\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{15564\PYZhy{}2\PYZhy{}0\PYZhy{}1.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{31323\PYZhy{}3\PYZhy{}0\PYZhy{}1.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{46669\PYZhy{}4\PYZhy{}0\PYZhy{}35.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{89948\PYZhy{}5\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{46656\PYZhy{}6\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{103074\PYZhy{}7\PYZhy{}3\PYZhy{}2.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{106905\PYZhy{}8\PYZhy{}0\PYZhy{}0.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{108041\PYZhy{}9\PYZhy{}0\PYZhy{}4.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{human\PYZhy{}11\PYZhy{}4.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{parent\PYZus{}dir\PYZus{}disp} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sound\PYZhy{}data/audio/fold1}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{n}{mfccs\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{chroma\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{mel\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{contrast\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{tonnetz\PYZus{}lst}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{sound\PYZus{}file\PYZus{}paths}\PY{p}{:}
+              \PY{n}{file}\PY{o}{=}\PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{parent\PYZus{}dir\PYZus{}disp}\PY{p}{,}\PY{n}{i}\PY{p}{)}
+              \PY{n}{mfccs}\PY{p}{,}\PY{n}{chroma}\PY{p}{,}\PY{n}{mel}\PY{p}{,}\PY{n}{contrast}\PY{p}{,}\PY{n}{tonnetz}\PY{o}{=}\PY{n}{extract\PYZus{}feature}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+              \PY{n}{mfccs\PYZus{}lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mfccs}\PY{p}{)}
+              \PY{n}{chroma\PYZus{}lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{chroma}\PY{p}{)}
+              \PY{n}{mel\PYZus{}lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{mel}\PY{p}{)}
+              \PY{n}{contrast\PYZus{}lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{contrast}\PY{p}{)}
+              \PY{n}{tonnetz\PYZus{}lst}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tonnetz}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/resampy/core.py:90: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if not np.issubdtype(x.dtype, np.float):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1725: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if np.issubdtype(x.dtype, float) or np.issubdtype(x.dtype, complex):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1640: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if not np.issubdtype(dtype, float):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1725: FutureWarning: Conversion of the second argument of issubdtype from `complex` to `np.complexfloating` is deprecated. In future, it will be treated as `np.complex128 == np.dtype(complex).type`.
+  if np.issubdtype(x.dtype, float) or np.issubdtype(x.dtype, complex):
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{c+c1}{\PYZsh{} plotting the features of all the different sound signals }
+          \PY{c+c1}{\PYZsh{} plotting the features of 6 different speakers }
+          
+             
+          \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{mfccs\PYZus{}lst}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{j}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MFCC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+          \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{chroma\PYZus{}lst}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chroma}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+          \PY{k}{for} \PY{n}{l} \PY{o+ow}{in} \PY{n}{mel\PYZus{}lst}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{l}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mel Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+          \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{contrast\PYZus{}lst}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{m}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{contrast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+          \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{tonnetz\PYZus{}lst}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tonnetz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    From the above graph it is very clear that the features such as
+contrast,tonnetz and chroma show some visible difference between
+different audio files.We cannot discard the other features just because
+they do not show any visible difference between each other.Hence the
+features considered are all the 5 factors.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{n}{parent\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sound\PYZhy{}data/audio/}\PY{l+s+s1}{\PYZsq{}}
+          \PY{c+c1}{\PYZsh{}sub\PYZus{}dirs = [\PYZdq{}fold1\PYZdq{},\PYZdq{}fold2\PYZdq{},\PYZdq{}fold3\PYZdq{},\PYZdq{}fold4\PYZdq{}]}
+          \PY{n}{sub\PYZus{}dirs}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold6}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fold7}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{features}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{parse\PYZus{}audio\PYZus{}files}\PY{p}{(}\PY{n}{parent\PYZus{}dir}\PY{p}{,}\PY{n}{sub\PYZus{}dirs}\PY{p}{)}
+          \PY{n}{labels} \PY{o}{=} \PY{n}{one\PYZus{}hot\PYZus{}encode}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+          
+          \PY{n}{train\PYZus{}test\PYZus{}split} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.70}
+          \PY{n}{train\PYZus{}x} \PY{o}{=} \PY{n}{features}\PY{p}{[}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{]}
+          \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{]}
+          \PY{n}{test\PYZus{}x} \PY{o}{=} \PY{n}{features}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{]}
+          \PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/resampy/core.py:90: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if not np.issubdtype(x.dtype, np.float):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1725: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if np.issubdtype(x.dtype, float) or np.issubdtype(x.dtype, complex):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1640: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  if not np.issubdtype(dtype, float):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1725: FutureWarning: Conversion of the second argument of issubdtype from `complex` to `np.complexfloating` is deprecated. In future, it will be treated as `np.complex128 == np.dtype(complex).type`.
+  if np.issubdtype(x.dtype, float) or np.issubdtype(x.dtype, complex):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/core/pitch.py:145: UserWarning: Trying to estimate tuning from empty frequency set.
+  warnings.warn('Trying to estimate tuning from empty frequency set.')
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1632: RuntimeWarning: invalid value encountered in less
+  if np.any(X < 0) or np.any(X\_ref < 0):
+/Users/shanraja/anaconda3/envs/dog-project/lib/python3.5/site-packages/librosa/util/utils.py:1645: RuntimeWarning: invalid value encountered in less
+  bad\_idx = (Z < np.finfo(dtype).tiny)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Error encountered while parsing file:  sound-data/audio/fold1/87275-1-3-0.wav
+Error encountered while parsing file:  sound-data/audio/fold2/17307-1-0-0.wav
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{c+c1}{\PYZsh{} learning parameters}
+          \PY{n}{training\PYZus{}epochs} \PY{o}{=} \PY{l+m+mi}{5000}
+          \PY{n}{n\PYZus{}dim} \PY{o}{=} \PY{n}{tr\PYZus{}features}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{n\PYZus{}classes} \PY{o}{=} \PY{l+m+mi}{12}
+          \PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}one} \PY{o}{=} \PY{l+m+mi}{280} 
+          \PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}two} \PY{o}{=} \PY{l+m+mi}{300}
+          \PY{n}{sd} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{/} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n\PYZus{}dim}\PY{p}{)}
+          \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{0.03}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{c+c1}{\PYZsh{} Multilayer perceptron}
+          \PY{n}{X} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{n}{n\PYZus{}dim}\PY{p}{]}\PY{p}{)}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{placeholder}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{,}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{n}{n\PYZus{}classes}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{W\PYZus{}1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}dim}\PY{p}{,}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}one}\PY{p}{]}\PY{p}{,} \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{b\PYZus{}1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}one}\PY{p}{]}\PY{p}{,} \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{h\PYZus{}1} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{W\PYZus{}1}\PY{p}{)} \PY{o}{+} \PY{n}{b\PYZus{}1}\PY{p}{)}
+          
+          \PY{n}{W\PYZus{}2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}one}\PY{p}{,}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}two}\PY{p}{]}\PY{p}{,} 
+          \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{b\PYZus{}2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}two}\PY{p}{]}\PY{p}{,} \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{h\PYZus{}2} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{sigmoid}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{h\PYZus{}1}\PY{p}{,}\PY{n}{W\PYZus{}2}\PY{p}{)} \PY{o}{+} \PY{n}{b\PYZus{}2}\PY{p}{)}
+          
+          \PY{n}{W} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}hidden\PYZus{}units\PYZus{}two}\PY{p}{,}\PY{n}{n\PYZus{}classes}\PY{p}{]}\PY{p}{,} \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{b} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{Variable}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{random\PYZus{}normal}\PY{p}{(}\PY{p}{[}\PY{n}{n\PYZus{}classes}\PY{p}{]}\PY{p}{,} \PY{n}{mean} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{stddev}\PY{o}{=}\PY{n}{sd}\PY{p}{)}\PY{p}{)}
+          \PY{n}{y\PYZus{}} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{nn}\PY{o}{.}\PY{n}{softmax}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{h\PYZus{}2}\PY{p}{,}\PY{n}{W}\PY{p}{)} \PY{o}{+} \PY{n}{b}\PY{p}{)}
+          
+          \PY{n}{init} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{global\PYZus{}variables\PYZus{}initializer}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{c+c1}{\PYZsh{} The cost function is assumed to cross\PYZhy{}entropy}
+          \PY{n}{cost\PYZus{}function} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}sum}\PY{p}{(}\PY{n}{Y} \PY{o}{*} \PY{n}{tf}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{)}\PY{p}{,} \PY{n}{reduction\PYZus{}indices}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)} 
+          \PY{c+c1}{\PYZsh{} Gradient Descent optimizer is used to reduce the loss function }
+          \PY{n}{optimizer} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{train}\PY{o}{.}\PY{n}{GradientDescentOptimizer}\PY{p}{(}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{o}{.}\PY{n}{minimize}\PY{p}{(}\PY{n}{cost\PYZus{}function}\PY{p}{)}
+          
+          \PY{n}{correct\PYZus{}prediction} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{accuracy} \PY{o}{=} \PY{n}{tf}\PY{o}{.}\PY{n}{reduce\PYZus{}mean}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{cast}\PY{p}{(}\PY{n}{correct\PYZus{}prediction}\PY{p}{,} \PY{n}{tf}\PY{o}{.}\PY{n}{float32}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{cost\PYZus{}history} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{empty}\PY{p}{(}\PY{n}{shape}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{n}{dtype}\PY{o}{=}\PY{n+nb}{float}\PY{p}{)}
+          \PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{k+kc}{None}
+          \PY{k}{with} \PY{n}{tf}\PY{o}{.}\PY{n}{Session}\PY{p}{(}\PY{p}{)} \PY{k}{as} \PY{n}{sess}\PY{p}{:}
+              \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{init}\PY{p}{)}
+              \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{training\PYZus{}epochs}\PY{p}{)}\PY{p}{:}            
+                  \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{cost} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{p}{[}\PY{n}{optimizer}\PY{p}{,}\PY{n}{cost\PYZus{}function}\PY{p}{]}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:}\PY{n}{train\PYZus{}x}\PY{p}{,}\PY{n}{Y}\PY{p}{:}\PY{n}{train\PYZus{}y}\PY{p}{\PYZcb{}}\PY{p}{)}
+                  \PY{n}{cost\PYZus{}history} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cost\PYZus{}history}\PY{p}{,}\PY{n}{cost}\PY{p}{)}
+              
+              \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{y\PYZus{}}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{feed\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{X}\PY{p}{:} \PY{n}{test\PYZus{}x}\PY{p}{\PYZcb{}}\PY{p}{)}
+              \PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{sess}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{tf}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{cost\PYZus{}history}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cost}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iterations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{training\PYZus{}epochs}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{cost\PYZus{}history}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{p}\PY{p}{,}\PY{n}{r}\PY{p}{,}\PY{n}{f}\PY{p}{,}\PY{n}{s} \PY{o}{=} \PY{n}{precision\PYZus{}recall\PYZus{}fscore\PYZus{}support}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{average}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{micro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F\PYZhy{}Score:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{f}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,}\PY{n}{y\PYZus{}pred}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+F-Score: 0.864
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}212}]:} array([[190,   1,  15,   0,   2,   2,   1,   6,   0,   1,   0],
+                 [  1,  94,   3,   5,   5,   0,   1,   1,   0,   5,   0],
+                 [  3,   0, 160,  13,   1,   0,   0,   4,   5,   7,   2],
+                 [  0,   2,  12, 179,   2,   1,   2,   2,   9,   3,   0],
+                 [  0,   3,   7,   5, 187,   2,   1,   4,   3,   6,   0],
+                 [  1,   1,   7,   2,   0, 198,   1,   0,   6,   0,   0],
+                 [  0,   0,   3,  12,   1,   0,  59,   0,   0,   1,   0],
+                 [  1,   0,   3,   0,   7,   0,   0, 216,   0,   0,   0],
+                 [  1,   0,   4,   8,   0,   2,   3,   0, 199,   1,   0],
+                 [  2,   4,  43,  20,   4,   6,   0,   1,   3, 135,   0],
+                 [  0,   0,   0,   0,   0,   0,   0,   0,   0,   0, 259]])
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
